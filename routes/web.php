@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,20 +18,25 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/halo', function () {
-    return 'halo dunia';
+    return 'Halo dunia';
 });
+
 Route::get('/user', [UserController::class, 'index'])->middleware('auth')->name('user');
 Route::get('/user/tambah', [UserController::class, 'tambah'])->middleware('auth')->name('user.tambah');
-Route::get('/user/lihat', [UserController::class, 'lihat'])->middleware('auth')->name('user.lihat');
 
-Route::get('/about', function () {
+Route::get('/tentang', function () {
     return view('about');
-})-> name('about');
+})->name('about');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('about', function () {
+    return view('/about');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,4 +44,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
